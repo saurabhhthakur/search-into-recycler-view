@@ -1,0 +1,51 @@
+
+// activity code
+
+  binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                 if (s != null || !s.toString().isEmpty()){
+                     topSearchAdapter.myFilter(s.toString().toLowerCase(Locale.getDefault()));
+                 } else
+                     Toast.makeText(getActivity(), "Item not found", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+
+//    recycler view  
+
+
+    List<Data> data;
+    private List<Data> filteredList = new ArrayList<>();
+
+    // constructor
+    public TopSearchAdapter(List<Data> data) {
+        this.data = data;
+        filteredList.addAll(data);
+    }
+
+
+
+public void myFilter(String text) {
+        data.clear();
+        for (Data item : filteredList) {
+            if (item.getName().toLowerCase(Locale.getDefault()).contains(text.toLowerCase(Locale.getDefault()))) {
+                data.add(item);
+            }
+        }
+        notifyDataSetChanged();
+    }
